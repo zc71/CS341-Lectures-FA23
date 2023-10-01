@@ -145,10 +145,11 @@ char *ptr = "hello";
 Program arguments, environment variables, and working with character arrays (strings)
 
 ### Program arguments, `argc`, `argv`
-1. What are two ways to find the length of `argv`?
-2. What does `argv[0]` represent?
+1. What are two ways to find the length of `argv`? Using argc or iterating over argv
+2. What does `argv[0]` represent? argv[0] represents the name of the program itself.
 ### Environment Variables
 3. Where are the pointers to environment variables stored (on the stack, the heap, somewhere else)?
+The pointers to environment variables are typically stored in a section of the process's memory separate from the stack and the heap
 ### String searching (strings are just char arrays)
 4. On a machine where pointers are 8 bytes, and with the following code:
 ```C
@@ -156,10 +157,11 @@ char *ptr = "Hello";
 char array[] = "Hello";
 ```
 What are the values of `sizeof(ptr)` and `sizeof(array)`? Why?
-
+sizeof(ptr) will be 8 because ptr is a pointer.
+sizeof(array) will be 6 because it includes the characters H, e, l, l, o, and the null terminator \0.
 ### Lifetime of automatic variables
 
-5. What data structure manages the lifetime of automatic variables?
+5. What data structure manages the lifetime of automatic variables? Call Stack
 
 ## Chapter 4
 
@@ -209,14 +211,25 @@ Text input and output and parsing using `getchar`, `gets`, and `getline`.
 
 These are general tips for compiling and developing using a compiler and git. Some web searches will be useful here
 
-1. What compiler flag is used to generate a debug build?
+1. What compiler flag is used to generate a debug build? -g
 2. You modify the Makefile to generate debug builds and type `make` again. Explain why this is insufficient to generate a new build.
-3. Are tabs or spaces used to indent the commands after the rule in a Makefile?
+'make' might consider the existing build targets up-to-date and therefore might not rebuild them
+3. Are tabs or spaces used to indent the commands after the rule in a Makefile? \
+In a Makefile, tabs must be used to indent the commands after the rule. Using spaces will result in a syntax error.
 4. What does `git commit` do? What's a `sha` in the context of git?
+This command creates a new commit object, representing a snapshot of the repository's content at a specific point in time. In Git, a sha is a 40-character hexadecimal number that uniquely identifies a commit or object in the repository. It is a cryptographic hash function that ensures the integrity of objects within the repository.
 5. What does `git log` show you?
+A list of all the commits in the repository's history, starting from the most recent.
 6. What does `git status` tell you and how would the contents of `.gitignore` change its output?
+git status: This command shows the current status of the working directory and staging area.
+.gitignore: This file specifies patterns of file names that Git should ignore. When files match the patterns in .gitignore, they will not appear in the output of git status as untracked files, and they will not be included in commits.
 7. What does `git push` do? Why is it not just sufficient to commit with `git commit -m 'fixed all bugs' `?
-8. What does a non-fast-forward error `git push` reject mean? What is the most common way of dealing with this?
+git push: This command sends your local commits to a remote repository, updating the remote branch to match your local one.
+git commit: While this command creates a new commit in your local repository, it does not update the remote repository.
+It is not sufficient to just commit because the commit is local to our repository. To share changes with others and to synchronize our local repository with the remote, we need to push the commits.
+9. What does a non-fast-forward error `git push` reject mean? What is the most common way of dealing with this?
+Non-fast-forward error: This error occurs when trying to push changes to a remote branch, but the remote branch has new commits that I do not have locally. Pushing would overwrite the remote changes, which is not allowed by default.
+The most common way to deal with a non-fast-forward error is to first synchronize your local branch with the remote branch.
 
 ## Optional (Just for fun)
 - Convert your a song lyrics into System Programming and C code and share on Ed.
